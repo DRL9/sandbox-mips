@@ -1,0 +1,349 @@
+# li $v0,5 # syscall 5, 读取整数
+# 数据区域
+.data
+    print_wildcard: .asciiz "*"
+    print_A: .asciiz "Alpha"
+    print_N: .asciiz "November"
+    print_a: .asciiz "alpha"
+    print_n: .asciiz "november"
+    print_B: .asciiz "Bravo"
+    print_O: .asciiz "Oscar"
+    print_b: .asciiz "bravo"
+    print_o: .asciiz "oscar"
+    print_C: .asciiz "China"
+    print_P: .asciiz "Paper"
+    print_c: .asciiz "china"
+    print_p: .asciiz "paper"
+    print_D: .asciiz "Delta"
+    print_Q: .asciiz "Quebec"
+    print_d: .asciiz "delta"
+    print_q: .asciiz "quebec"
+    print_E: .asciiz "Echo"
+    print_R: .asciiz "Research"
+    print_e: .asciiz "echo"
+    print_r: .asciiz "research"
+    print_F: .asciiz "Foxtrot"
+    print_S: .asciiz "Sierra"
+    print_f: .asciiz "foxtrot"
+    print_s: .asciiz "sierra"
+    print_G: .asciiz "Golf"
+    print_T: .asciiz "Tango"
+    print_g: .asciiz "golf"
+    print_t: .asciiz "tango"
+    print_H: .asciiz "Hotel"
+    print_U: .asciiz "Uniform"
+    print_h: .asciiz "hotel"
+    print_u: .asciiz "uniform"
+    print_I: .asciiz "India"
+    print_V: .asciiz "Victor"
+    print_i: .asciiz "india"
+    print_v: .asciiz "victor"
+    print_J: .asciiz "Juliet"
+    print_W: .asciiz "Whisky"
+    print_j: .asciiz "juliet"
+    print_w: .asciiz "whisky"
+    print_K: .asciiz "Kilo"
+    print_X: .asciiz "X-ray"
+    print_k: .asciiz "kilo"
+    print_x: .asciiz "x-ray"
+    print_L: .asciiz "Lima"
+    print_Y: .asciiz "Yankee"
+    print_l: .asciiz "lima"
+    print_y: .asciiz "yankee"
+    print_M: .asciiz "Mary"
+    print_Z: .asciiz "Zulu"
+    print_m: .asciiz "mary"
+    print_z: .asciiz "zulu"
+
+    print_1: .asciiz "First"
+    print_2: .asciiz "Second"
+    print_3: .asciiz "Third"
+    print_4: .asciiz "Fourth"
+    print_5: .asciiz "Fifth"
+    print_6: .asciiz "Sixth"
+    print_7: .asciiz "Seventh"
+    print_8: .asciiz "Eighth"
+    print_9: .asciiz "Ninth"
+    print_0: .asciiz "zero"
+
+    c_exit: .asciiz "?" # 退出
+
+# 指令区域
+.text
+    main:
+# 5 $v0 int read
+# 6 $f0 float read
+# 8 read string $a0 开始地址 $a1 最大长度
+
+        #  将 ? 加载到 $t1
+        la $s1,c_exit
+        lb $t1,0($s1)
+
+        loop_start:
+            li $v0,12
+            syscall
+
+            beq $v0,$t1,loop_end # 判断是否退出
+
+            # 字符相等判断
+            beq $v0,0x30,mark_0
+            beq $v0,0x31,mark_1
+            beq $v0,0x32,mark_2
+            beq $v0,0x33,mark_3
+            beq $v0,0x34,mark_4
+            beq $v0,0x35,mark_5
+            beq $v0,0x36,mark_6
+            beq $v0,0x37,mark_7
+            beq $v0,0x38,mark_8
+            beq $v0,0x39,mark_9
+            beq $v0,0x41,mark_A
+            beq $v0,0x42,mark_B
+            beq $v0,0x43,mark_C
+            beq $v0,0x44,mark_D
+            beq $v0,0x45,mark_E
+            beq $v0,0x46,mark_F
+            beq $v0,0x47,mark_G
+            beq $v0,0x48,mark_H
+            beq $v0,0x49,mark_I
+            beq $v0,0x4a,mark_J
+            beq $v0,0x4b,mark_K
+            beq $v0,0x4c,mark_L
+            beq $v0,0x4d,mark_M
+            beq $v0,0x4e,mark_N
+            beq $v0,0x4f,mark_O
+            beq $v0,0x50,mark_P
+            beq $v0,0x51,mark_Q
+            beq $v0,0x52,mark_R
+            beq $v0,0x53,mark_S
+            beq $v0,0x54,mark_T
+            beq $v0,0x55,mark_U
+            beq $v0,0x56,mark_V
+            beq $v0,0x57,mark_W
+            beq $v0,0x58,mark_X
+            beq $v0,0x59,mark_Y
+            beq $v0,0x5a,mark_Z
+            beq $v0,0x61,mark_a
+            beq $v0,0x62,mark_b
+            beq $v0,0x63,mark_c
+            beq $v0,0x64,mark_d
+            beq $v0,0x65,mark_e
+            beq $v0,0x66,mark_f
+            beq $v0,0x67,mark_g
+            beq $v0,0x68,mark_h
+            beq $v0,0x69,mark_i
+            beq $v0,0x6a,mark_j
+            beq $v0,0x6b,mark_k
+            beq $v0,0x6c,mark_l
+            beq $v0,0x6d,mark_m
+            beq $v0,0x6e,mark_n
+            beq $v0,0x6f,mark_o
+            beq $v0,0x70,mark_p
+            beq $v0,0x71,mark_q
+            beq $v0,0x72,mark_r
+            beq $v0,0x73,mark_s
+            beq $v0,0x74,mark_t
+            beq $v0,0x75,mark_u
+            beq $v0,0x76,mark_v
+            beq $v0,0x77,mark_w
+            beq $v0,0x78,mark_x
+            beq $v0,0x79,mark_y
+            beq $v0,0x7a,mark_z
+
+            # 其他字符
+            la $a0,print_wildcard
+            j print
+
+            mark_0:
+                la $a0,print_0
+                j print
+            mark_1:
+                la $a0,print_1
+                j print
+            mark_2:
+                la $a0,print_2
+                j print
+            mark_3:
+                la $a0,print_3
+                j print
+            mark_4:
+                la $a0,print_4
+                j print
+            mark_5:
+                la $a0,print_5
+                j print
+            mark_6:
+                la $a0,print_6
+                j print
+            mark_7:
+                la $a0,print_7
+                j print
+            mark_8:
+                la $a0,print_8
+                j print
+            mark_9:
+                la $a0,print_9
+                j print
+            mark_A:
+                la $a0,print_A
+                j print
+            mark_B:
+                la $a0,print_B
+                j print
+            mark_C:
+                la $a0,print_C
+                j print
+            mark_D:
+                la $a0,print_D
+                j print
+            mark_E:
+                la $a0,print_E
+                j print
+            mark_F:
+                la $a0,print_F
+                j print
+            mark_G:
+                la $a0,print_G
+                j print
+            mark_H:
+                la $a0,print_H
+                j print
+            mark_I:
+                la $a0,print_I
+                j print
+            mark_J:
+                la $a0,print_J
+                j print
+            mark_K:
+                la $a0,print_K
+                j print
+            mark_L:
+                la $a0,print_L
+                j print
+            mark_M:
+                la $a0,print_M
+                j print
+            mark_N:
+                la $a0,print_N
+                j print
+            mark_O:
+                la $a0,print_O
+                j print
+            mark_P:
+                la $a0,print_P
+                j print
+            mark_Q:
+                la $a0,print_Q
+                j print
+            mark_R:
+                la $a0,print_R
+                j print
+            mark_S:
+                la $a0,print_S
+                j print
+            mark_T:
+                la $a0,print_T
+                j print
+            mark_U:
+                la $a0,print_U
+                j print
+            mark_V:
+                la $a0,print_V
+                j print
+            mark_W:
+                la $a0,print_W
+                j print
+            mark_X:
+                la $a0,print_X
+                j print
+            mark_Y:
+                la $a0,print_Y
+                j print
+            mark_Z:
+                la $a0,print_Z
+                j print
+            mark_a:
+                la $a0,print_a
+                j print
+            mark_b:
+                la $a0,print_b
+                j print
+            mark_c:
+                la $a0,print_c
+                j print
+            mark_d:
+                la $a0,print_d
+                j print
+            mark_e:
+                la $a0,print_e
+                j print
+            mark_f:
+                la $a0,print_f
+                j print
+            mark_g:
+                la $a0,print_g
+                j print
+            mark_h:
+                la $a0,print_h
+                j print
+            mark_i:
+                la $a0,print_i
+                j print
+            mark_j:
+                la $a0,print_j
+                j print
+            mark_k:
+                la $a0,print_k
+                j print
+            mark_l:
+                la $a0,print_l
+                j print
+            mark_m:
+                la $a0,print_m
+                j print
+            mark_n:
+                la $a0,print_n
+                j print
+            mark_o:
+                la $a0,print_o
+                j print
+            mark_p:
+                la $a0,print_p
+                j print
+            mark_q:
+                la $a0,print_q
+                j print
+            mark_r:
+                la $a0,print_r
+                j print
+            mark_s:
+                la $a0,print_s
+                j print
+            mark_t:
+                la $a0,print_t
+                j print
+            mark_u:
+                la $a0,print_u
+                j print
+            mark_v:
+                la $a0,print_v
+                j print
+            mark_w:
+                la $a0,print_w
+                j print
+            mark_x:
+                la $a0,print_x
+                j print
+            mark_y:
+                la $a0,print_y
+                j print
+            mark_z:
+                la $a0,print_z
+                j print
+            print:
+                li $v0 4
+                syscall
+                j loop_start
+
+        loop_end:
+            li $v0,10
+            syscall
