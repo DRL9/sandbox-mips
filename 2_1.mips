@@ -69,15 +69,12 @@
 .text
     main:
 
-        #  将 ? 加载到 $t1
-        li $t1, 0x3f
-
         loop_start:
             # 12 read char
             li $v0,12
             syscall
 
-            beq $v0,$t1,loop_end # 判断是否退出
+            beq $v0,0x3f,loop_end # 判断是否退出
 
             # 字符相等判断
             beq $v0,0x30,mark_0

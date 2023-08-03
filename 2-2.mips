@@ -1,0 +1,48 @@
+.data
+    input_buffer: .space 100
+    str_success: .asciiz "Success! Location: "
+    str_fail: .asciiz "Fail!\n"
+.text
+    li $a1,100 #最多读取100字节
+    la $a0,input_buffer
+    li $v0,8
+    syscall # 获取待查询字符串
+
+    la $t0,input_buffer # $t0 是待查字符串的地址
+
+    guess_start:
+        li $v0,12
+        syscall # 获取输入字符串
+
+        beq $v0,0x3f,loop_end # 判断是否退出
+
+        li $t9,0 # $t9 存当前查询的字符偏移
+        search_start:
+            add $t2,$t0,$t9
+            lb $t1,0($t2) # 读取字符到 $t1
+            beq $t1,$v0,m_success # 找到了
+            beq $t1,$zero,m_fail # 没找到
+
+            addi $t9,$t9,1
+            j search_start
+
+        m_fail:
+            li $v0,4
+            la $a0,str_fail
+            syscall
+        j guess_start
+
+    m_success:
+        li $v0,4
+        la $a0,str_success
+        syscall
+
+        # 打印偏移量
+        addi $t9,$t9,1
+        move $a0,$t9
+        li $v0,1
+        syscall
+
+    loop_end:
+        li $v0,10
+        syscall
